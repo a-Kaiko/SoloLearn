@@ -1,46 +1,37 @@
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(Snacks.bringSnacks());
+        String snacksBrought = "Mango Mango Carrot";
+        Snacks snacks = new Snacks();
+        System.out.println(snacks.bringSnacks(snacksBrought));
     }
 
     public static class Snacks {
 
-        public static String bringSnacks() {
-            String iguanaAction = "";
-            if (getSnacksPoints() > 10)
-                iguanaAction = "Come on Down!";
-            else
-                iguanaAction = "Time to wait";
-            return iguanaAction;
-        }
-    }
-
-    private static int getSnacksPoints() {
-        int points = 0;
-        for (String s : getList()) {
-            switch (s) {
-                case "Lettuce" :
-                    points += 5;
-                    break;
-                case "Carrot" :
-                    points += 4;
-                    break;
-                case "Mango" :
-                    points += 9;
-                    break;
-                default :
-                    points += 0;
-                    break;
+        public String bringSnacks(String snack) {
+            if (getSnacksPoints(snack) > 10) {
+                return "Come on Down!";
             }
+            return "Time to wait";
         }
-        return points;
-    }
-    private static List<String> getList() {
-        String[] snacksBrought = input().split(" ");
-        List<String> snacksList;
-        snacksList = Arrays.asList(snacksBrought);
-        return snacksList;
+
+        private int getSnacksPoints(String snack) {
+            int points = 0;
+            Map<String, Integer> snacks = getSnacks();
+            for (String s : snack.split(" ")) {
+                points += snacks.getOrDefault(s, 0);
+            }
+            return points;
+        }
+        private Map<String, Integer> getSnacks() {
+            Map<String, Integer> snacksValue = new HashMap<String, Integer>();
+            snacksValue.put("Lettuce", 5);
+            snacksValue.put("Carrot", 4);
+            snacksValue.put("Mango", 9);
+            snacksValue.put("Cheeseburger", 0);
+            return snacksValue;
+        }
     }
 }
