@@ -1,0 +1,28 @@
+public class Program {
+
+    public static void main(String[] args) {
+        KaleidoscopePurchase kaleidoscopePurchase = new KaleidoscopePurchase();
+        double totalPrice = kaleidoscopePurchase.getTotalPrice(input());
+        System.out.println(String.format("%.2f", totalPrice));
+    }
+
+    private static class KaleidoscopePurchase {
+
+        public double getTotalPrice(int amount) {
+            double price = amount*5D;
+            price -= getDiscount(amount, price);
+            return price + getTax(price);
+        }
+
+        private double getDiscount(int amount, double price) {
+            if (amount > 1) {
+                return (10*price) / 100;
+            }
+            return 0;
+        }
+
+        private double getTax(double price) {
+            return (7*price)/100;
+        }
+    }
+}
